@@ -1,0 +1,53 @@
+D:\My Projects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Data.deps.json
+D:\My Projects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Data.dll
+D:\My Projects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Data.pdb
+D:\My Projects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\My Projects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.AssemblyInfoInputs.cache
+D:\My Projects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.AssemblyInfo.cs
+D:\My Projects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.csproj.CoreCompileInputs.cache
+D:\My Projects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.dll
+D:\My Projects\AssetManager.Data\obj\Debug\net8.0\refint\AssetManager.Data.dll
+D:\My Projects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.pdb
+D:\My Projects\AssetManager.Data\obj\Debug\net8.0\ref\AssetManager.Data.dll
+D:\My Projects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Models.dll
+D:\My Projects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Models.pdb
+D:\My Projects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.csproj.AssemblyReference.cache
+D:\My Projects\AssetManager.Data\obj\Debug\net8.0\AssetMan.57965B68.Up2Date
+D:\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Data.deps.json
+D:\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Data.dll
+D:\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Data.pdb
+D:\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Models.dll
+D:\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Models.pdb
+D:\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.csproj.AssemblyReference.cache
+D:\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.AssemblyInfoInputs.cache
+D:\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.AssemblyInfo.cs
+D:\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.csproj.CoreCompileInputs.cache
+D:\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetMan.57965B68.Up2Date
+D:\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.dll
+D:\MyProjects\AssetManager.Data\obj\Debug\net8.0\refint\AssetManager.Data.dll
+D:\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.pdb
+D:\MyProjects\AssetManager.Data\obj\Debug\net8.0\ref\AssetManager.Data.dll
+D:\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Data.runtimeconfig.json
+D:\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.genruntimeconfig.cache
+D:\MyProjects\AssetManager.Data\bin\Debug\net8.0\appsettings.Development.json
+D:\MyProjects\AssetManager.Data\bin\Debug\net8.0\appsettings.json
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\obj\Debug\net8.0\refint\AssetManager.Data.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.pdb
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\bin\Debug\net8.0\appsettings.Development.json
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\bin\Debug\net8.0\appsettings.json
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Data.deps.json
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Data.runtimeconfig.json
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Data.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Data.pdb
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Models.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\bin\Debug\net8.0\AssetManager.Models.pdb
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.csproj.AssemblyReference.cache
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.AssemblyInfoInputs.cache
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.AssemblyInfo.cs
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.csproj.CoreCompileInputs.cache
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetMan.57965B68.Up2Date
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\obj\Debug\net8.0\AssetManager.Data.genruntimeconfig.cache
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Data\obj\Debug\net8.0\ref\AssetManager.Data.dll

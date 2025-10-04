@@ -1,0 +1,45 @@
+D:\My Projects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Dapper.deps.json
+D:\My Projects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Dapper.dll
+D:\My Projects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Dapper.pdb
+D:\My Projects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.GeneratedMSBuildEditorConfig.editorconfig
+D:\My Projects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.AssemblyInfoInputs.cache
+D:\My Projects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.AssemblyInfo.cs
+D:\My Projects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.csproj.CoreCompileInputs.cache
+D:\My Projects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.dll
+D:\My Projects\AssetManager.Dapper\obj\Debug\net8.0\refint\AssetManager.Dapper.dll
+D:\My Projects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.pdb
+D:\My Projects\AssetManager.Dapper\obj\Debug\net8.0\ref\AssetManager.Dapper.dll
+D:\My Projects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Models.dll
+D:\My Projects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Models.pdb
+D:\My Projects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.csproj.AssemblyReference.cache
+D:\My Projects\AssetManager.Dapper\obj\Debug\net8.0\AssetMan.30538E94.Up2Date
+D:\MyProjects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Dapper.deps.json
+D:\MyProjects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Dapper.dll
+D:\MyProjects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Dapper.pdb
+D:\MyProjects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Models.dll
+D:\MyProjects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Models.pdb
+D:\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.csproj.AssemblyReference.cache
+D:\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.GeneratedMSBuildEditorConfig.editorconfig
+D:\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.AssemblyInfoInputs.cache
+D:\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.AssemblyInfo.cs
+D:\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.csproj.CoreCompileInputs.cache
+D:\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetMan.30538E94.Up2Date
+D:\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.dll
+D:\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\refint\AssetManager.Dapper.dll
+D:\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.pdb
+D:\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\ref\AssetManager.Dapper.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\refint\AssetManager.Dapper.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.pdb
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Dapper.deps.json
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Dapper.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Dapper.pdb
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Models.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\bin\Debug\net8.0\AssetManager.Models.pdb
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.csproj.AssemblyReference.cache
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.AssemblyInfoInputs.cache
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.AssemblyInfo.cs
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetManager.Dapper.csproj.CoreCompileInputs.cache
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\AssetMan.30538E94.Up2Date
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Dapper\obj\Debug\net8.0\ref\AssetManager.Dapper.dll

@@ -1,0 +1,33 @@
+D:\My Projects\AssetManager.Models\bin\Debug\net8.0\AssetManager.Models.deps.json
+D:\My Projects\AssetManager.Models\bin\Debug\net8.0\AssetManager.Models.dll
+D:\My Projects\AssetManager.Models\bin\Debug\net8.0\AssetManager.Models.pdb
+D:\My Projects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\My Projects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.AssemblyInfoInputs.cache
+D:\My Projects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.AssemblyInfo.cs
+D:\My Projects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.csproj.CoreCompileInputs.cache
+D:\My Projects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.dll
+D:\My Projects\AssetManager.Models\obj\Debug\net8.0\refint\AssetManager.Models.dll
+D:\My Projects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.pdb
+D:\My Projects\AssetManager.Models\obj\Debug\net8.0\ref\AssetManager.Models.dll
+D:\MyProjects\AssetManager.Models\bin\Debug\net8.0\AssetManager.Models.deps.json
+D:\MyProjects\AssetManager.Models\bin\Debug\net8.0\AssetManager.Models.dll
+D:\MyProjects\AssetManager.Models\bin\Debug\net8.0\AssetManager.Models.pdb
+D:\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.AssemblyInfoInputs.cache
+D:\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.AssemblyInfo.cs
+D:\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.csproj.CoreCompileInputs.cache
+D:\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.dll
+D:\MyProjects\AssetManager.Models\obj\Debug\net8.0\refint\AssetManager.Models.dll
+D:\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.pdb
+D:\MyProjects\AssetManager.Models\obj\Debug\net8.0\ref\AssetManager.Models.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Models\bin\Debug\net8.0\AssetManager.Models.deps.json
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Models\bin\Debug\net8.0\AssetManager.Models.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Models\bin\Debug\net8.0\AssetManager.Models.pdb
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.AssemblyInfoInputs.cache
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.AssemblyInfo.cs
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.csproj.CoreCompileInputs.cache
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Models\obj\Debug\net8.0\refint\AssetManager.Models.dll
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Models\obj\Debug\net8.0\AssetManager.Models.pdb
+D:\Project\MyProjects (1)\MyProjects\AssetManager.Models\obj\Debug\net8.0\ref\AssetManager.Models.dll
