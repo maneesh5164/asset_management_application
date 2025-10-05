@@ -1,0 +1,134 @@
+﻿@page "/"
+@inject LoginService LoginService
+@using System.ComponentModel.DataAnnotations
+@using AssetManager.Business.Services
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+@using AssetManager.UI.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject ILogger<Login> Logger
+@inject NavigationManager Navigation
+@inject IdentityRedirectManager RedirectManager
+@inject IConfiguration Configuration
+<PageTitle>Log in</PageTitle>
+
+
+<style>
+    /* Background with gradient */
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1rem;
+    }
+
+    /* Card with gradient and shadow */
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+        background: linear-gradient(145deg, #1f2937, #374151);
+        color: white;
+        border-radius: 1rem;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        padding: 1rem;
+    }
+
+    /* Button styling */
+    .login-btn {
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 0.75rem;
+    }
+
+
+</style>
+
+
+<div class="login-container">
+    <MudCard Class="login-card">
+        <MudCardHeader>
+            <h2 class="text-center text-white">Welcome Back 👋</h2>
+        </MudCardHeader>
+        <MudCardContent>
+            <StatusMessage Message="@errorMessage" />
+
+            <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
+                <DataAnnotationsValidator />
+                <ValidationSummary class="text-danger" role="alert" />
+                <div class="form-floating mb-3">
+                    <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label for="email" style="color: black;" class="form-label">Email</label>
+                    <ValidationMessage For="() => Input.Email" class="text-danger" />
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                    <label for="password" style="color: black;" class="form-label">Password</label>
+                    <ValidationMessage For="() => Input.Password" class="text-danger" />
+                </div>
+
+                <div>
+                    <button type="submit" class="w-100 mt-2 login-btn btn btn-lg btn-primary">Log in</button>
+                </div>
+            </EditForm>
+
+
+
+
+        </MudCardContent>
+    </MudCard>
+</div>
+
+@code {
+    private string? errorMessage;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (HttpMethods.IsGet(HttpContext.Request.Method))
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        }
+    }
+
+    public async Task LoginUser()
+    {
+        // This doesn't count login failures towards account lockout
+        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+        if (LoginService.Login(Input.Email, Input.Password, Configuration))
+        {
+            Navigation.NavigateTo("/dashboard");
+        }
+        else
+        {
+            errorMessage = "Invalid username or password!";
+        }
+        
+    }
+
+    private sealed class InputModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = "";
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = "";
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }
+}

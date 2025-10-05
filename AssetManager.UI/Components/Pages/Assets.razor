@@ -1,0 +1,179 @@
+﻿@page "/assets"
+@using AssetManager.Business.Interface
+@using AssetManager.Models.Data
+@using AssetManager.UI.Components.Pages.Dialog
+@inject IAssetService AssetService
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@rendermode InteractiveServer
+<h3>Assets</h3>
+
+<MudButton Color="Color.Primary" Class="mb-4" Variant="Variant.Filled" ButtonType="ButtonType.Button" OnClick="@ShowAddForm" Size="Size.Small">
+    Add Asset
+</MudButton>
+
+<MudDataGrid T="Asset" Items="@assets" Filterable="true" Elevation="5" SortMode="SortMode.Single" Groupable="false" Hover="true">
+    <Columns>
+        <PropertyColumn  Property="x => x.AssetId" Title="ID" Hidden="true" />
+        <PropertyColumn  Property="x => x.AssetName" Title="Name" />
+        <PropertyColumn  Property="x => x.AssetType" Title="Type" />
+        <PropertyColumn  Property="x => x.Status" Title="Status" />
+
+        <TemplateColumn Title="Actions">
+            <CellTemplate>
+                <MudStack Row Spacing="1">
+                    <MudButton Color="Color.Secondary" Variant="Variant.Filled" ButtonType="ButtonType.Button"
+                               Size="Size.Small" OnClick="@(() => ShowEditForm(context.Item))">Edit</MudButton>
+                    <MudButton Color="Color.Error" Variant="Variant.Filled" ButtonType="ButtonType.Button"
+                               Size="Size.Small" OnClick="@(() => DeleteAsset(context.Item.AssetId))">Delete</MudButton>
+                </MudStack>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+
+
+@code {
+    private List<Asset> assets = new();
+    private Asset selectedAsset = new();
+
+        protected override async Task OnInitializedAsync()
+        {
+            try
+            {
+                assets = await AssetService.GetAll();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error loading assets: {ex.Message}", Severity.Error);
+            }
+        }
+
+        private async Task ShowAddForm()
+        {
+            try
+            {
+                var options = new DialogOptions()
+                {
+                    CloseButton = true,
+                    MaxWidth = MaxWidth.Small,
+                    FullWidth = true
+                };
+
+                var parameters = new DialogParameters
+                {
+                    ["Asset"] = new Asset(), // empty object for Add
+                    ["Title"] = "Add New Asset"
+                };
+
+                var dialog = DialogService.Show<AssetDialog>("Add Asset", parameters, options);
+                var result = await dialog.Result;
+
+                if (!result.Canceled)
+                {
+                    var newAsset = (Asset)result.Data!;
+                    selectedAsset = newAsset;
+                    await SaveAsset();
+                }
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error showing add form: {ex.Message}", Severity.Error);
+            }
+        }
+
+        private async Task ShowEditForm(Asset asset)
+        {
+            try
+            {
+                var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
+                var parameters = new DialogParameters
+                {
+                    ["Asset"] = asset, // existing asset
+                    ["Title"] = "Edit Asset"
+                };
+
+                var dialog = DialogService.Show<AssetDialog>("Edit Asset", parameters, options);
+                var result = await dialog.Result;
+
+                if (!result.Canceled)
+                {
+                    var updatedAsset = (Asset)result.Data!;
+                    selectedAsset = updatedAsset;
+                    await SaveAsset();
+                }
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error showing edit form: {ex.Message}", Severity.Error);
+            }
+        }
+
+        private async Task SaveAsset()
+        {
+            try
+            {
+                if (selectedAsset.AssetId == 0)
+                {
+                    await AssetService.Add(selectedAsset);
+                    Snackbar.Add("Asset added successfully", Severity.Success);
+                }
+                else
+                {
+                    await AssetService.Update(selectedAsset);
+                    Snackbar.Add("Asset updated successfully", Severity.Success);
+                }
+
+                assets = await AssetService.GetAll();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error saving asset: {ex.Message}", Severity.Error);
+            }
+        }
+
+        private async Task<bool> DeleteAssetAsync()
+        {
+            try
+            {
+                var parameters = new DialogParameters<CommonDialog>
+                {
+                    { x => x.ContentText, "Do you really want to delete these records? This process cannot be undone." },
+                    { x => x.ButtonText, "Delete" },
+                    { x => x.Color, Color.Error }
+                };
+
+                var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+                var dialog = DialogService.Show<CommonDialog>("Delete", parameters, options);
+
+                var result = await dialog.Result;
+
+                return !result.Canceled;
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error during delete confirmation: {ex.Message}", Severity.Error);
+                return false;
+            }
+        }
+
+        private async Task DeleteAsset(int assetId)
+        {
+            try
+            {
+                bool confirmed = await DeleteAssetAsync();
+
+                if (confirmed)
+                {
+                    await AssetService.Delete(assetId);
+                    assets = await AssetService.GetAll();
+                    Snackbar.Add("Asset deleted successfully", Severity.Success);
+                }
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error deleting asset: {ex.Message}", Severity.Error);
+            }
+        }
+}

@@ -1,0 +1,82 @@
+﻿@using AssetManager.Models.Data
+<MudDialog>
+    <TitleContent>@Title</TitleContent>
+    <DialogContent>
+        <MudForm @ref="form" Model="@Employee">
+
+            <!-- Full Name -->
+            <MudTextField Variant="Variant.Outlined"
+                          Label="Full Name"
+                          @bind-Value="Employee.FullName"
+                          For="@(() => Employee.FullName)"
+                          Required="true" />
+
+            <!-- Email -->
+            <MudTextField Variant="Variant.Outlined"
+                          Label="Email"
+                          @bind-Value="Employee.Email"
+                          For="@(() => Employee.Email)"
+                          Required="true" />
+
+            <!-- Phone Number -->
+            <MudTextField Variant="Variant.Outlined"
+                          Label="Phone Number"
+                          @bind-Value="Employee.PhoneNumber"
+                          For="@(() => Employee.PhoneNumber)"
+                          Required="true" />
+
+            <!-- Department -->
+            <MudTextField Variant="Variant.Outlined"
+                          Label="Department"
+                          @bind-Value="Employee.Department"
+                          For="@(() => Employee.Department)" />
+
+            <!-- Designation -->
+            <MudTextField Variant="Variant.Outlined"
+                          Label="Designation"
+                          @bind-Value="Employee.Designation"
+                          For="@(() => Employee.Designation)" />
+
+            <!-- Is Active -->
+            <MudCheckBox T="bool"
+                         Label="Is Active"
+                         Color="Color.Primary"
+                         @bind-Checked="Employee.IsActive" />
+
+        </MudForm>
+    </DialogContent>
+
+
+
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Save">Save</MudButton>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter]
+    public Employee Employee { get; set; } = new Employee(); // Passed from parent
+
+    [Parameter]
+    public string Title { get; set; } = "Edit Employee";
+
+    private MudForm? form;
+
+    private async Task Save()
+    {
+        await form!.Validate();
+        if (form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok(Employee));
+        }
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+}

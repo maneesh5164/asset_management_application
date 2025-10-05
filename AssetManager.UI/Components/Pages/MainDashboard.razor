@@ -1,0 +1,125 @@
+﻿@page "/dashboard"
+@using AssetManager.Business.Interface
+@using MudBlazor
+@using AssetManager.Models.Data
+@inject IDashboardService DashboardService
+
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="pa-4">
+
+    <MudText Typo="Typo.h4" Class="mb-4">📊 Asset Inventory Dashboard</MudText>
+
+    <!-- Overview Widgets -->
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Class="pa-4 d-flex align-center justify-center" Elevation="2">
+                <MudText Typo="Typo.h6">Total Assets</MudText>
+                <MudText Typo="Typo.h5" Color="Color.Primary" Class="ml-auto">@Dashboard.TotalAssets</MudText>
+            </MudPaper>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Class="pa-4 d-flex align-center justify-center" Elevation="2">
+                <MudText Typo="Typo.h6">Assigned</MudText>
+                <MudText Typo="Typo.h5" Color="Color.Info" Class="ml-auto">@Dashboard.AssignedAssets</MudText>
+            </MudPaper>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Class="pa-4 d-flex align-center justify-center" Elevation="2">
+                <MudText Typo="Typo.h6">Available</MudText>
+                <MudText Typo="Typo.h5" Color="Color.Success" Class="ml-auto">@Dashboard.AvailableAssets</MudText>
+            </MudPaper>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Class="pa-4 d-flex align-center justify-center" Elevation="2">
+                <MudText Typo="Typo.h6">Under Repair</MudText>
+                <MudText Typo="Typo.h5" Color="Color.Warning" Class="ml-auto">@Dashboard.UnderRepairAssets</MudText>
+            </MudPaper>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Class="pa-4 d-flex align-center justify-center" Elevation="2">
+                <MudText Typo="Typo.h6">Retired</MudText>
+                <MudText Typo="Typo.h5" Color="Color.Error" Class="ml-auto">@Dashboard.RetiredAssets</MudText>
+            </MudPaper>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Class="pa-4 d-flex align-center justify-center" Elevation="2">
+                <MudText Typo="Typo.h6">Spare Assets</MudText>
+                <MudText Typo="Typo.h5" Color="Color.Secondary" Class="ml-auto">@Dashboard.SpareAssets</MudText>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+
+    <MudGrid Class="mt-6">
+        <!-- Assets by Type -->
+        <MudItem xs="12" md="6">
+            <MudPaper Class="pa-4" Elevation="2">
+                <MudText Typo="Typo.h6" Class="mb-2">Assets by Type</MudText>
+                <MudChart ChartType="ChartType.Pie"
+                          InputLabels="@Dashboard.AssetsByType.Keys.ToArray()"
+                          InputData="@Dashboard.AssetsByType.Values.Select(x => (double)x).ToArray()" />
+            </MudPaper>
+        </MudItem>
+
+
+        <!-- Assets by Condition -->
+        <MudItem xs="12" md="6">
+            <MudPaper Class="pa-4" Elevation="2">
+                <MudText Typo="Typo.h6" Class="mb-2">Assets by Condition</MudText>
+                <MudChart ChartType="ChartType.Pie"
+                          InputLabels="@Dashboard.AssetsByCondition.Keys.ToArray()"
+                          InputData="@Dashboard.AssetsByCondition.Values.Select(x => (double)x).ToArray()" />
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+
+    <!-- Assets Table -->
+    <MudPaper Class="pa-4 mt-6" Elevation="2">
+        <MudText Typo="Typo.h6" Class="mb-2">Assets List</MudText>
+
+        <MudTable Items="@Dashboard.LatestAssets" Hover="true" Bordered="true" Striped="true">
+            <HeaderContent>
+                
+                <MudTh>Name</MudTh>
+                <MudTh>Type</MudTh>
+                <MudTh>Status</MudTh>
+                <MudTh>Assigned To</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+               
+                <MudTd>@context.AssetName</MudTd>
+                <MudTd>@context.AssetType</MudTd>
+                <MudTd>
+                    <MudChip T="string" Color="@GetStatusColor(context.Status.ToString())" Variant="Variant.Filled">
+                        @context.Status
+                    </MudChip>
+                </MudTd>
+                <MudTd>@context.AssetAssignments.LastOrDefault()?.Employee.FullName</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudPaper>
+
+</MudContainer>
+
+@code {
+    private Dashboard Dashboard = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Dashboard = await DashboardService.GetDashboardAsync();
+    }
+
+    private Color GetStatusColor(string status) =>
+        status switch
+        {
+            "Available" => Color.Success,
+            "Assigned" => Color.Info,
+            "UnderRepair" => Color.Warning,
+            "Retired" => Color.Error,
+            _ => Color.Default
+        };
+}

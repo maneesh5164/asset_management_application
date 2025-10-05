@@ -1,0 +1,195 @@
+﻿@page "/employees"
+@using AssetManager.Business.Interface
+@using AssetManager.Models.Data
+@using AssetManager.UI.Components.Pages.Dialog
+@using MudBlazor
+@inject IEmployeeService EmployeeService
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@rendermode InteractiveServer
+
+<h3>Employees</h3>
+
+
+<MudButton Color="Color.Primary" Class="mb-4" Variant="Variant.Filled" ButtonType="ButtonType.Button" OnClick="@ShowAddForm" Size="Size.Small">
+    Add Employee
+</MudButton>
+
+<MudDataGrid T="Employee" Items="@employees" Elevation="5" Filterable="true" SortMode="SortMode.Single" Groupable="false" Hover="true" Breakpoint="Breakpoint.Sm">
+    <Columns>
+        <PropertyColumn Property="x => x.FullName" Title="Full Name" />
+        <PropertyColumn Property="x => x.Email" Title="Email" />
+        <PropertyColumn Property="x => x.Designation" Title="Designation" />
+        <PropertyColumn Property="x => x.Department" Title="Department" />
+        <TemplateColumn Title="Actions">
+            <CellTemplate>
+                <MudButton Color="Color.Secondary" Variant="Variant.Filled" ButtonType="ButtonType.Button"
+                           Size="Size.Small" OnClick="@(() => ShowEditForm(context.Item))">Edit</MudButton>
+                <MudButton Color="Color.Error" Variant="Variant.Filled" ButtonType="ButtonType.Button"
+                           Size="Size.Small" OnClick="@(() => DeleteEmployee(context.Item.EmployeeId))">Delete</MudButton>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+
+
+
+@code {                                                     
+    private List<Employee> employees = new();
+    private bool isDialogVisible = false;
+
+    public Employee selectedEmployee = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            employees = await EmployeeService.GetAllEmployeesAsync();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error loading employees: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task ShowAddForm()
+    {
+        try
+        {
+            var options = new DialogOptions()
+            {
+                CloseButton = true,
+                MaxWidth = MaxWidth.Small,
+                FullWidth = true
+            };
+
+            var parameters = new DialogParameters
+            {
+                ["Employee"] = new Employee(), // empty object
+                ["Title"] = "Add New Employee"
+            };
+
+            var dialog = DialogService.Show<EmployeeDialog>("Add Employee", parameters, options);
+            var result = await dialog.Result;
+
+            if (!result.Canceled)
+            {
+                var newEmployee = (Employee)result.Data!;
+                selectedEmployee = newEmployee;
+                await SaveEmployee();
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error showing add form: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task ShowEditForm(Employee employee)
+    {
+        try
+        {
+            var options = new DialogOptions()
+            {
+                CloseButton = true,
+                MaxWidth = MaxWidth.Small,
+                FullWidth = true
+            };
+
+            var parameters = new DialogParameters
+            {
+                ["Employee"] = employee,
+                ["Title"] = "Update Employee Info"
+            };
+
+            var dialog = DialogService.Show<EmployeeDialog>("Edit Employee", parameters, options);
+            var result = await dialog.Result;
+
+            if (!result.Canceled)
+            {
+                var updatedEmployee = (Employee)result.Data!;
+                selectedEmployee = updatedEmployee;
+                await SaveEmployee();
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error showing edit form: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private void CloseDialog()
+    {
+        isDialogVisible = false;
+    }
+
+    private async Task SaveEmployee()
+    {
+        try
+        {
+            if (selectedEmployee.EmployeeId == 0)
+            {
+                await EmployeeService.AddEmployeeAsync(selectedEmployee);
+                Snackbar.Add("Employee added successfully", Severity.Success);
+            }
+            else
+            {
+                await EmployeeService.UpdateEmployeeAsync(selectedEmployee);
+                Snackbar.Add("Employee updated successfully", Severity.Success);
+            }
+
+            employees = await EmployeeService.GetAllEmployeesAsync();
+            isDialogVisible = false;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error saving employee: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task<bool> DeleteUserAsync()
+    {
+        try
+        {
+            var parameters = new DialogParameters<CommonDialog>
+            {
+                { x => x.ContentText, "Do you really want to delete these records? This process cannot be undone." },
+                { x => x.ButtonText, "Delete" },
+                { x => x.Color, Color.Error }
+            };
+
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+            var dialog = DialogService.Show<CommonDialog>("Delete", parameters, options);
+
+            var result = await dialog.Result;
+
+            return !result.Canceled;
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error during delete confirmation: {ex.Message}", Severity.Error);
+            return false;
+        }
+    }
+
+    private async Task DeleteEmployee(int employeeId)
+    {
+        try
+        {
+            bool confirmed = await DeleteUserAsync();
+
+            if (confirmed)
+            {
+                await EmployeeService.DeleteEmployeeAsync(employeeId);
+                employees = await EmployeeService.GetAllEmployeesAsync();
+                Snackbar.Add("Employee deleted successfully", Severity.Success);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error deleting employee: {ex.Message}", Severity.Error);
+        }
+    }
+}

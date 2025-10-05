@@ -1,0 +1,80 @@
+﻿@using AssetManager.Models.Data
+<MudDialog>
+    <TitleContent>@Title</TitleContent>
+
+    <DialogContent>
+        <MudForm @ref="form" Model="@Asset">
+
+            <!-- Text Fields -->
+            <MudTextField Variant="Variant.Outlined" Label="Asset Name" For="@(() => Asset.AssetName)" @bind-Value="Asset.AssetName" />
+            <MudTextField Variant="Variant.Outlined" Label="Asset Type" For="@(() => Asset.AssetType)" @bind-Value="Asset.AssetType" />
+            <MudTextField Variant="Variant.Outlined" Label="Make/Model" For="@(() => Asset.MakeModel)" @bind-Value="Asset.MakeModel" />
+            <MudTextField Variant="Variant.Outlined" Label="Serial Number" For="@(() => Asset.SerialNumber)" @bind-Value="Asset.SerialNumber" />
+
+            <!-- Date Pickers -->
+            <MudDatePicker Variant="Variant.Outlined" Label="Purchase Date" For="@(() => Asset.PurchaseDate)" @bind-Date="Asset.PurchaseDate" />
+            <MudDatePicker Variant="Variant.Outlined" Label="Warranty Expiry" For="@(() => Asset.WarrantyExpiryDate)" @bind-Date="Asset.WarrantyExpiryDate" />
+
+            <MudSelect Variant=Variant.Outlined T="AssetCondition" @bind-Value="Asset.Condition" Label="Condition" For="@(() => Asset.Condition)">
+                @foreach (var cond in Enum.GetValues<AssetCondition>())
+                {
+                    <MudSelectItem T="AssetCondition" Value="@cond">
+                        @(cond == AssetCondition.None ? "Select Condition" : cond.ToString())
+                    </MudSelectItem>
+                }
+
+            </MudSelect>
+
+            <MudSelect Variant=Variant.Outlined T="AssetStatus" @bind-Value="Asset.Status" Label="Status" For="@(() => Asset.Status)">
+                @foreach (var status in Enum.GetValues<AssetStatus>())
+                {
+                    <MudSelectItem T="AssetStatus" Value="@status">
+                        @(status == AssetStatus.None ? "Select Status" : status.ToString())
+                    </MudSelectItem>
+                }
+            </MudSelect>
+
+            
+
+            <!-- Checkbox -->
+            <MudCheckBox T="bool" Color="Color.Primary" Class="ml-n3" Label="Is Spare" @bind-Checked="Asset.IsSpare" />
+
+            <!-- Multi-line Text -->
+            <MudTextField Variant="Variant.Outlined" Lines="3" Label="Specifications" For="@(() => Asset.Specifications)" @bind-Value="Asset.Specifications" />
+
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Save">Save</MudButton>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter]
+    public Asset Asset { get; set; } = new Asset(); // Passed from parent
+
+    [Parameter]
+    public string Title { get; set; } = "Add Asset"; // Dynamic title
+
+    private MudForm? form;
+
+    private async Task Save()
+    {
+        await form!.Validate();
+        if (form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok(Asset));
+        }
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+}

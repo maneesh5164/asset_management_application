@@ -1,0 +1,64 @@
+﻿@using AssetManager.Models.Data
+
+<MudDialog>
+    <TitleContent>@Title</TitleContent>
+    <DialogContent>
+        <MudForm @ref="form" Model="@Assignment" Validation="@(new DataAnnotationsValidator())">
+            <!-- Select Asset -->
+            <MudSelect Variant=Variant.Outlined T="Asset" Label="Asset" @bind-Value="Assignment.Asset" For="@(() => Assignment.Asset)">
+                @foreach (var asset in Assets)
+                {
+                    <MudSelectItem Value="@asset">@asset.AssetName</MudSelectItem>
+                }
+            </MudSelect>
+
+            <!-- Select Employee -->
+            <MudSelect Variant=Variant.Outlined T="Employee" Label="Employee" @bind-Value="Assignment.Employee" For="@(() => Assignment.Employee)">
+                @foreach (var emp in Employees)
+                {
+                    <MudSelectItem Value="@emp">@emp.FullName</MudSelectItem>
+                }
+            </MudSelect>
+
+            <!-- Dates -->
+            <MudDatePicker Variant=Variant.Outlined Label="Assigned Date" @bind-Date="Assignment.AssignedDate" For="@(() => Assignment.AssignedDate)" />
+            <MudDatePicker Variant=Variant.Outlined Label="Returned Date" @bind-Date="Assignment.ReturnedDate" />
+
+            <!-- Notes -->
+            <MudTextField Variant=Variant.Outlined Label="Notes" @bind-Value="Assignment.Notes" For="@(() => Assignment.Notes)" Lines="3" />
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Save">Save</MudButton>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter] public AssetAssignment Assignment { get; set; } = new AssetAssignment();
+    [Parameter] public List<Asset> Assets { get; set; } = new();
+    [Parameter] public List<Employee> Employees { get; set; } = new();
+    [Parameter] public string Title { get; set; } = "Assign Asset";
+
+    private MudForm? form;
+
+    async Task Save()
+    {
+        if (form is not null)
+        {
+            await form.Validate();
+            if (form.IsValid)
+            {
+                MudDialog.Close(DialogResult.Ok(Assignment));
+            }
+        }
+    }
+
+    void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+}

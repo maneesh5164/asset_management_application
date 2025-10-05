@@ -1,0 +1,195 @@
+﻿@page "/assignments"
+@using AssetManager.Business.Interface
+@using AssetManager.Models.Data
+@using AssetManager.UI.Components.Pages.Dialog
+@inject IAssetAssignmentService AssignmentService
+@inject IEmployeeService EmployeeService
+@inject IAssetService AssetService
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@rendermode InteractiveServer
+<h3>Asset Assignments</h3>
+
+<MudButton Color="Color.Primary" Class="mb-4" Variant="Variant.Filled" ButtonType="ButtonType.Button" OnClick="@ShowAddForm" Size="Size.Small">
+    Assign Asset
+</MudButton>
+<MudDataGrid Items="@assignments" Filterable="true" Elevation="5" SortMode="SortMode.Single" Groupable="false" Hover="true">
+    <Columns>
+        <PropertyColumn Property="x => x.AssetAssignmentId" Title="ID" Hidden="true" />
+        <PropertyColumn Property="x => x.Asset.AssetName" Title="Asset" />
+        <PropertyColumn Property="x => x.Employee.FullName" Title="Employee" />
+        <PropertyColumn Property="x => x.AssignedDate" Title="Assigned Date" Format="d" />
+        <PropertyColumn Property="x => x.ReturnedDate" Title="Returned Date" Format="d" />
+
+        <TemplateColumn Title="Actions">
+            <CellTemplate>
+                <MudStack Row Spacing="1">
+                    <MudButton Color="Color.Secondary" Variant="Variant.Filled" ButtonType="ButtonType.Button"
+                               Size="Size.Small" OnClick="@(() => ShowEditForm(context.Item))">Edit</MudButton>
+                    <MudButton Color="Color.Error" Variant="Variant.Filled" ButtonType="ButtonType.Button"
+                               Size="Size.Small" OnClick="@(() => DeleteAssignment(context.Item.AssetAssignmentId))">Delete</MudButton>
+                </MudStack>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+
+
+
+@code {
+    private List<AssetAssignment> assignments = new();
+    private List<Employee> employees = new();
+    private List<Asset> assets = new();
+
+    private bool isDialogVisible = false;
+    private AssetAssignment selectedAssignment = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            assignments = await AssignmentService.GetAll();
+            employees = await EmployeeService.GetAllEmployeesAsync();
+            assets = await AssetService.GetAll();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error loading assignments: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task ShowAddForm()
+    {                       
+        try
+        {
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
+
+            var parameters = new DialogParameters
+            {
+                ["Assignment"] = new AssetAssignment(),
+                ["Assets"] = assets,
+                ["Employees"] = employees,
+                ["Title"] = "Add New Assignment"
+            };
+
+            var dialog = DialogService.Show<AssetAssignmentDialog>("Add Assignment", parameters, options);
+            var result = await dialog.Result;
+
+            if (!result.Canceled)
+            {
+                var newAssignment = (AssetAssignment)result.Data!;
+                selectedAssignment = newAssignment;
+                await SaveAssignment();
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error showing add form: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task ShowEditForm(AssetAssignment assign)
+    {
+        try
+        {
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
+
+            var parameters = new DialogParameters
+            {
+                ["Assignment"] = assign,
+                ["Assets"] = assets,
+                ["Employees"] = employees,
+                ["Title"] = "Edit Assignment"
+            };
+
+            var dialog = DialogService.Show<AssetAssignmentDialog>("Edit Assignment", parameters, options);
+            var result = await dialog.Result;
+
+            if (!result.Canceled)
+            {
+                var updatedAssignment = (AssetAssignment)result.Data!;
+                selectedAssignment = updatedAssignment;
+                await SaveAssignment();
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error showing edit form: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private void CloseDialog()
+    {
+        isDialogVisible = false;
+    }
+
+    private async Task SaveAssignment()
+    {
+        try
+        {
+            if (selectedAssignment.AssetAssignmentId == 0)
+            {
+                await AssignmentService.Add(selectedAssignment);
+                Snackbar.Add("Asset assigned successfully", Severity.Success);
+            }
+            else
+            {
+                await AssignmentService.Update(selectedAssignment);
+                Snackbar.Add("Assignment updated successfully", Severity.Success);
+            }
+
+            assignments = await AssignmentService.GetAll();
+            isDialogVisible = false;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error saving assignment: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task<bool> DeleteAssigmentsAsync()
+    {
+        try
+        {
+            var parameters = new DialogParameters<CommonDialog>
+            {
+                { x => x.ContentText, "Are you sure you want to delete this assignment?" },
+                { x => x.ButtonText, "Delete" },
+                { x => x.Color, Color.Error }
+            };
+
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+            var dialog = DialogService.Show<CommonDialog>("Delete", parameters, options);
+
+            var result = await dialog.Result;
+
+            return !result.Canceled;
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error during delete confirmation: {ex.Message}", Severity.Error);
+            return false;
+        }
+    }
+
+    private async Task DeleteAssignment(int id)
+    {
+        try
+        {
+            bool confirmed = await DeleteAssigmentsAsync();
+
+            if (confirmed)
+            {
+                await AssignmentService.Delete(id);
+                assignments = await AssignmentService.GetAll();
+                Snackbar.Add("Assignment deleted successfully", Severity.Success);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error deleting assignment: {ex.Message}", Severity.Error);
+        }
+    }
+}
