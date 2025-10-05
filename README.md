@@ -22,9 +22,6 @@ AssetManager/
 ├── AssetManager.Business # Business logic services
 └── AssetManager.UI # Blazor Server UI
 
-yaml
-Copy code
-
 ---
 
 ## 🔐 Authentication
@@ -33,3 +30,8 @@ Copy code
 - Credentials:
  Email-admin@gmail.com
  Password- Admin@123
+
+## SQL Scripts
+- SQL scripts are at the AssetManager.Data Layer in Scripts folder in myScript.sql file
+
+The app is not not deployed and I run it locally on my device.
